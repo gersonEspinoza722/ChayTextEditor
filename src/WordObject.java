@@ -1,10 +1,11 @@
 import java.awt.*;
 
-public class Word {
+public class WordObject {
     private String content;
     private Color color;
 
-    public Word(String content, Color color) {
+
+    public WordObject(String content, Color color) {
         this.content = content;
         this.color = color;
     }

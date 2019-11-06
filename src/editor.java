@@ -5,9 +5,11 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
+
 class editor extends JFrame implements ActionListener {
     // Text component 
     JTextPane t;
+    ArrayList<Integer> changed;
 
     // Frame 
     JFrame f;
@@ -103,16 +105,66 @@ class editor extends JFrame implements ActionListener {
         else if (s.equals("color")) {
             //appendToPane(t,"hola",Color.RED);
 
-            ArrayList<Word> words = new ArrayList<Word>();
-            Word w1 = new Word("hola", Color.green);
-            Word w2 = new Word("mundo", Color.red);
-            Word w3 = new Word("MIERDA", Color.CYAN);
-            System.out.println(t.getSelectedText());
-            System.out.println(t.getSelectionStart());
 
-            appendToPane(t,w1.getContent(),w1.getColor());
-            appendToPane(t,w2.getContent(),w2.getColor());
-            appendToPane(t,w3.getContent(),w3.getColor());
+            int selectionPos = t.getSelectionStart();
+            WordObject w1 = new WordObject("hola", Color.green);
+            WordObject w2 = new WordObject("mundo", Color.red);
+            WordObject w3 = new WordObject("MIERDA", Color.CYAN);
+            //System.out.println(t.getSelectedText());
+            //System.out.println(t.getSelectionStart());
+
+            String [] renglonesCompletos = t.getText().split("\n");
+            ArrayList<String[]> renglonesTokenizados=new ArrayList<>();
+            for (int i = 0; i < renglonesCompletos.length; i++){
+                renglonesTokenizados.add(renglonesCompletos[i].split(" "));
+            }
+            ArrayList<ArrayList<WordObject>> words = new ArrayList<ArrayList<WordObject>>();
+
+            for(int j =0; j<renglonesTokenizados.size();j++){
+                ArrayList<WordObject> row = new ArrayList<>();
+                for(int x = 0; x<renglonesTokenizados.get(j).length;x++){
+
+                    System.out.println(renglonesTokenizados.get(j)[x]);
+                    WordObject wordToken = new WordObject(renglonesTokenizados.get(j)[x],Color.BLACK);
+                    //System.out.println(wordToken.getContent());
+                    row.add(wordToken);
+                    //System.out.println(row.size());
+                }
+                words.add(row);
+                //System.out.println(words.size());
+            }
+
+            int wordCounter=0;
+
+            t.setText("");
+            System.out.println("selección: "+selectionPos);
+            for(int r=0;r<words.size();r++){
+                for(int w=0;w<words.get(r).size();w++){
+                    System.out.println("contador: "+wordCounter);
+                    if(wordCounter==selectionPos){
+                        words.get(r).get(w).setColor(Color.red);
+                    }
+                    appendToPane(t,words.get(r).get(w).getContent(),words.get(r).get(w).getColor());
+                    appendToPane(t," ",Color.BLACK);
+                    wordCounter+=words.get(r).get(w).getContent().length();
+                    if(words.get(r).size()>1 && w<words.get(r).size()-1){
+                        wordCounter+=1;
+                    }
+
+                }
+                appendToPane(t,"\n",Color.BLACK);
+            }
+
+
+
+
+            System.out.println("Renglones: " +renglonesTokenizados.size());
+            System.out.println("Primer renglón tiene: "+renglonesTokenizados.get(0).length);
+
+
+            //appendToPane(t,w1.getContent(),w1.getColor());
+            //appendToPane(t,w2.getContent(),w2.getColor());
+            //appendToPane(t,w3.getContent(),w3.getColor());
         }
         else if (s.equals("Save")) {
             // Create an object of JFileChooser class 
