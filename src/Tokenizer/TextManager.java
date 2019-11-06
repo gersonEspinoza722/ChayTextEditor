@@ -49,7 +49,8 @@ public class TextManager {
                 for(int x = 0; x<renglonesTokenizados.get(j).length;x++){
 
                     //System.out.println(renglonesTokenizados.get(j)[x]);
-                    WordObject wordToken = new WordObject(renglonesTokenizados.get(j)[x],t.getSelectedTextColor());
+                    IStrategy strategy = new ColorStrategy(Color.BLACK);
+                    WordObject wordToken = new WordObject(renglonesTokenizados.get(j)[x],strategy);
                     //System.out.println(wordToken.getContent());
                     row.add(wordToken);
                     //System.out.println(row.size());
@@ -73,9 +74,9 @@ public class TextManager {
                 //System.out.println("contador: "+wordCounter);
                 if(wordCounter==selectionPos){
                     IStrategy strategy = new ColorStrategy(Color.MAGENTA);
-                    words.get(r).get(w).setColor((Color)strategy.doGetInfo());
+                    words.get(r).get(w).setColor(strategy);
                 }
-                appendToPane(t,words.get(r).get(w).getContent(),words.get(r).get(w).getColor());
+                appendToPane(t,words.get(r).get(w).getContent(),(Color) words.get(r).get(w).getColor().doGetInfo());
                 if(w!=words.get(r).size()-1){
                     appendToPane(t," ",Color.BLACK);
                 }
