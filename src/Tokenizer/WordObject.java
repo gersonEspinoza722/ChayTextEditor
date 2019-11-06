@@ -1,3 +1,5 @@
+package Tokenizer;
+
 import java.awt.*;
 
 public class WordObject {
