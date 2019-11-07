@@ -12,6 +12,9 @@ public class WordsLineArray implements WordsLineListing {
         lines = new ArrayList<>();
     }
 
+    public WordsLineArray(ArrayList<ArrayList<WordObject>> lines) {
+        this.lines = lines;
+    }
 
     @Override
     public void addLine(ArrayList line) {
@@ -54,6 +57,6 @@ public class WordsLineArray implements WordsLineListing {
             }
             newLines.add(newLine);
         }
-        return (IPrototype) newLines;
+        return new WordsLineArray(newLines);
     }
 }
