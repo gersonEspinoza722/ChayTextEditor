@@ -1,8 +1,9 @@
 package Tokenizer;
 
+import Prototype.IPrototype;
 import Strategy.IStrategy;
 
-public class WordObject {
+public class WordObject implements IPrototype<WordObject> {
     private String content;
     private IStrategy colorStrategy;
 
@@ -26,5 +27,15 @@ public class WordObject {
 
     public void setColor(IStrategy colorstrategy) {
         this.colorStrategy = colorstrategy;
+    }
+
+    @Override
+    public IPrototype clone() {
+        return null;
+    }
+
+    @Override
+    public IPrototype deepClone() {
+        return new WordObject(content, colorStrategy);
     }
 }
