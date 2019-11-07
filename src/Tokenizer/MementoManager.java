@@ -3,8 +3,8 @@ package Tokenizer;
 import java.util.Stack;
 
 public class MementoManager {
-    private Stack<Memento> mementosBefore;
-    private Stack<Memento> mementosAfter;
+    private Stack<IMemento> mementosBefore;
+    private Stack<IMemento> mementosAfter;
     int memorySize;
 
     public MementoManager(int memorySize) {
@@ -13,23 +13,23 @@ public class MementoManager {
         this.memorySize = memorySize;
     }
 
-    public void saveMementoBefore(Memento memento){
+    public void saveMementoBefore(IMemento memento){
         if(mementosBefore.size()>memorySize){
             mementosBefore.remove(mementosBefore.peek());
         }
         mementosBefore.push(memento);
     }
 
-    public void saveMementoAfter(Memento memento){
+    public void saveMementoAfter(IMemento memento){
         if(mementosAfter.size()>memorySize){
             mementosAfter.remove(mementosAfter.peek());
         }
         mementosAfter.push(memento);
     }
 
-    public Memento undo(){
+    public IMemento undo(){
         if(mementosBefore.empty() == false){
-            Memento memento = mementosBefore.pop(); //sacar memento anterior
+            IMemento memento = mementosBefore.pop(); //sacar memento anterior
             saveMementoAfter(memento);
             return memento;
         }
@@ -38,9 +38,9 @@ public class MementoManager {
         }
     }
 
-    public Memento redo(){
+    public IMemento redo(){
         if(mementosAfter.empty() == false){
-            Memento memento = mementosAfter.pop(); //sacar memento anterior
+            IMemento memento = mementosAfter.pop(); //sacar memento anterior
             saveMementoBefore(memento);
             return memento;
         }

@@ -1,13 +1,13 @@
 package Tokenizer;
 
-public class Memento {
+public class Memento implements IMemento{
     private IState state;
 
     public Memento(IState state){
         this.state = state;
     }
 
-    public IState getState(){
-        return state;
+    public IMemento getState(){
+        return this;
     }
 }

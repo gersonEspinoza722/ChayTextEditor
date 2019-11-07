@@ -5,7 +5,7 @@ import Tokenizer.WordObject;
 
 import java.util.ArrayList;
 
-public class TextSnapshot implements IState {
+public class TextSnapshot implements IMemento {
 
     private ArrayList<ArrayList<WordObject>> words;
 
@@ -14,7 +14,7 @@ public class TextSnapshot implements IState {
     }
 
     @Override
-    public IState getState() {
+    public IMemento getState() {
         return this;
     }
 

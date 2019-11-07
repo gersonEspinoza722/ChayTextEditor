@@ -23,13 +23,13 @@ public class TextManager {
         this.history = new MementoManager(20);
     }
 
-    public Memento createMemento(){
-        Memento newMemento = new Memento(new TextSnapshot(words)); //Factory de estados?
+    public IMemento createMemento(){
+        IMemento newMemento = new TextSnapshot(words); //Factory de estados?
         history.saveMementoBefore(newMemento);
         return newMemento;
     }
 
-    public void restore(Memento memento){
+    public void restore(IMemento memento){
         //if dependiendo del tipo?
         TextSnapshot textSnapshot = (TextSnapshot) memento.getState();
         words = textSnapshot.getWords();
