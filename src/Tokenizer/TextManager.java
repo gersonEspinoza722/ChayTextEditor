@@ -13,8 +13,35 @@ import java.util.ArrayList;
 
 
 public class TextManager {
-    private ArrayList<ArrayList<Tokenizer.WordObject>> words;
-    boolean tokenized;
+    private ArrayList<ArrayList<WordObject>> words; //IList?
+    private boolean tokenized;
+    private MementoManager history;
+
+    public TextManager() {
+        this.tokenized=false;
+        this.words=new ArrayList<>();
+        this.history = new MementoManager(20);
+    }
+
+    public Memento createMemento(){
+        Memento newMemento = new Memento(new TextSnapshot(words)); //Factory de estados?
+        history.saveMementoBefore(newMemento);
+        return newMemento;
+    }
+
+    public void restore(Memento memento){
+        //if dependiendo del tipo?
+        TextSnapshot textSnapshot = (TextSnapshot) memento.getState();
+        words = textSnapshot.getWords();
+    }
+
+    public void undo(){
+        restore(history.undo());
+    }
+
+    public void redo(){
+        restore(history.redo());
+    }
 
     public ArrayList<ArrayList<WordObject>> getWords() {
         return words;
@@ -30,11 +57,6 @@ public class TextManager {
 
     public void setTokenized(boolean tokenized) {
         this.tokenized = tokenized;
-    }
-
-    public TextManager() {
-        this.tokenized=false;
-        this.words=new ArrayList<>();
     }
 
     public void tokenize(JTextPane t){

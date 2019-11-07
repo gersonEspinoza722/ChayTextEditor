@@ -2,16 +2,14 @@ package Tokenizer;
 
 import Strategy.IStrategy;
 
-import java.awt.*;
-
 public class WordObject {
     private String content;
-    private IStrategy colorstrategy;
+    private IStrategy colorStrategy;
 
 
-    public WordObject(String content, IStrategy colorstrategy) {
+    public WordObject(String content, IStrategy colorStrategy) {
         this.content = content;
-        this.colorstrategy = colorstrategy;
+        this.colorStrategy = colorStrategy;
     }
 
     public String getContent() {
@@ -23,10 +21,10 @@ public class WordObject {
     }
 
     public IStrategy getColor() {
-        return colorstrategy;
+        return colorStrategy;
     }
 
     public void setColor(IStrategy colorstrategy) {
-        this.colorstrategy = colorstrategy;
+        this.colorStrategy = colorstrategy;
     }
 }

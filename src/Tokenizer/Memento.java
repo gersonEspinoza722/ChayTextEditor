@@ -1,3 +1,5 @@
+package Tokenizer;
+
 public class Memento {
     private IState state;
 

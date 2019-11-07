@@ -1,3 +1,6 @@
+import Tokenizer.IState;
+import Tokenizer.Memento;
+
 public class Originator {
     private IState state;
 
@@ -9,11 +12,11 @@ public class Originator {
         return state;
     }
 
-    public Memento saveStateToMemento(){
+    public Memento createMemento(){
         return new Memento(state);
     }
 
-    public void getStateFromMemento(Memento memento){
+    public void setMemento(Memento memento){
         state = memento.getState();
     }
 }
